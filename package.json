@@ -1,0 +1,20 @@
+{
+  "name": "chrono-tracker",
+  "version": "1.0.0",
+  "description": "This project is a web-based application called **Chrono-Tracker** designed to be a comprehensive hour-tracking and project management system. It will allow users to manage projects, track time spent by various team members, and handle high-level planning. The system will be built with a decoupled architecture, where a single backend API serves data to a modern frontend, allowing for potential future integrations with other applications.",
+  "homepage": "https://github.com/RubenvanRijen/chrono-tracker#readme",
+  "bugs": {
+    "url": "https://github.com/RubenvanRijen/chrono-tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RubenvanRijen/chrono-tracker.git"
+  },
+  "license": "ISC",
+  "author": "RubenVanRijen",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
