@@ -29,7 +29,7 @@ services:
     working_dir: /workspace/shared
     healthcheck:
       test: [ "CMD", "test", "-f", "/workspace/shared/dist/index.js" ]
-      interval: 5s
+      interval: 15s
       timeout: 3s
       retries: 5
 
