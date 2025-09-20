@@ -1,35 +1,46 @@
-import {defineConfig, globalIgnores} from "eslint/config";
-import tsPlugin from "@typescript-eslint/eslint-plugin";
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
-    globalIgnores(
-        [
-            "node_modules/",
-            "dist/",
-            "build/",
-            "coverage/",
-            ".cache/",
-            ".DS_Store",
-            ".env",
-            ".env.local"
-        ],
-        "shared: ignores"
-    ),
+  // Global ignores
+  {
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'build/',
+      'coverage/',
+      '.cache/',
+      '.DS_Store',
+      '.env',
+      '.env.local',
+    ],
+  },
 
-    {
-        files: ["**/*.ts"],
-        languageOptions: {
-            parser: "@typescript-eslint/parser",
-            parserOptions: {
-                ecmaVersion: "latest",
-                sourceType: "module"
-            }
-        },
-        plugins: {"@typescript-eslint": tsPlugin},
-        rules: {
-            "no-unused-vars": "off",
-            "@typescript-eslint/no-unused-vars": ["warn", {"argsIgnorePattern": "^_"}],
-            "@typescript-eslint/explicit-module-boundary-types": "off"
-        }
-    }
+  // Base JS config
+  js.configs.recommended,
+
+  // TypeScript configs
+  ...tseslint.configs.recommended,
+
+  // Custom overrides
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  },
 ]);
