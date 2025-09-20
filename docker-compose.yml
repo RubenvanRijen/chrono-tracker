@@ -11,6 +11,10 @@ services:
     networks:
       - chrono-network
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
 
   shared:
     build:
@@ -20,9 +24,13 @@ services:
     volumes:
       - ./shared:/app
       - /app/node_modules
-      - shared_dist:/app/dist
     networks:
       - chrono-network
+    healthcheck:
+      test: [ "CMD", "test", "-f", "/app/dist/index.js" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   backend:
     build:
@@ -34,12 +42,15 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-      - shared_dist:/app/node_modules/@chrono-tracker/shared/dist
+      - ./shared/dist:/app/node_modules/@chrono-tracker/shared/dist:ro
+      - ./shared/package.json:/app/node_modules/@chrono-tracker/shared/package.json:ro
     env_file:
       - ./backend/.env
     depends_on:
-      - shared
-      - mysql
+      shared:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     networks:
       - chrono-network
 
@@ -54,15 +65,17 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
-      - shared_dist:/app/node_modules/@chrono-tracker/shared/dist
+      - ./shared/dist:/app/node_modules/@chrono-tracker/shared/dist:ro
+      - ./shared/package.json:/app/node_modules/@chrono-tracker/shared/package.json:ro
     depends_on:
-      - shared
-      - backend
+      shared:
+        condition: service_healthy
+      backend:
+        condition: service_started
     networks:
       - chrono-network
 
 volumes:
-  shared_dist:
   mysql_data:
 
 networks:

@@ -15,7 +15,7 @@ export default function Home() {
                     priority
                 />
                 <ol>
-                    <li>{{StateTypes.ACTIVE}}</li>
+                    <li>{StateTypes.ACTIVE}</li>
                     <li>
                         Get started by editing <code>src/app/page.tsx</code>.
                     </li>
