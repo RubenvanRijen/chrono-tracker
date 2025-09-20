@@ -1,0 +1,39 @@
+{
+  "name": "chrono-tracker",
+  "version": "1.0.0",
+  "description": "This project is a web-based application called **Chrono-Tracker** designed to be a comprehensive hour-tracking and project management system. It will allow users to manage projects, track time spent by various team members, and handle high-level planning. The system will be built with a decoupled architecture, where a single backend API serves data to a modern frontend, allowing for potential future integrations with other applications.",
+  "homepage": "https://github.com/RubenvanRijen/chrono-tracker#readme",
+  "bugs": {
+    "url": "https://github.com/RubenvanRijen/chrono-tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RubenvanRijen/chrono-tracker.git"
+  },
+  "license": "ISC",
+  "author": "RubenVanRijen",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint:adonis": "npm --prefix packages/adonisjs run lint",
+    "lint:next": "npm --prefix packages/next run lint",
+    "lint:shared": "npm --prefix packages/shared run lint",
+    "lint": "npm run lint:adonis && npm run lint:next && npm run lint:shared",
+    "lint:parallel": "concurrently \"npm --prefix packages/adonisjs run lint\" \"npm --prefix packages/next run lint\" \"npm --prefix packages/shared run lint\"",
+    "lint:fix:adonis": "npm --prefix packages/adonisjs run lint:fix",
+    "lint:fix:next": "npm --prefix packages/next run lint:fix",
+    "lint:fix:shared": "npm --prefix packages/shared run lint:fix",
+    "lint:fix": "npm run lint:fix:adonis && npm run lint:fix:next && npm run lint:fix:shared",
+    "lint:fix:parallel": "concurrently \"npm --prefix packages/adonisjs run lint:fix\" \"npm --prefix packages/next run lint:fix\" \"npm --prefix packages/shared run lint:fix\"",
+    "format:adonis": "npm --prefix packages/adonisjs run format",
+    "format:next": "npm --prefix packages/next run format",
+    "format:shared": "npm --prefix packages/shared run format",
+    "format": "npm run format:adonis && npm run format:next && npm run format:shared",
+    "format:parallel": "concurrently \"npm --prefix packages/adonisjs run format\" \"npm --prefix packages/next run format\" \"npm --prefix packages/shared run format\"",
+    "format:check:adonis": "npm --prefix packages/adonisjs run format:check",
+    "format:check:next": "npm --prefix packages/next run format:check",
+    "format:check:shared": "npm --prefix packages/shared run format:check",
+    "format:check": "npm run format:check:adonis && npm run format:check:next && npm run format:check:shared",
+    "format:check:parallel": "concurrently \"npm --prefix packages/adonisjs run format:check\" \"npm --prefix packages/next run format:check\" \"npm --prefix packages/shared run format:check\""
+  }
+}
