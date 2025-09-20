@@ -1,12 +1,18 @@
 {
-  "name": "shared",
+  "name": "@chrono-tracker/shared",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "module",
-  "main": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "dev": "tsc --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write .",
