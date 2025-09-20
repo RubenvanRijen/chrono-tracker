@@ -16,6 +16,23 @@ services:
       timeout: 20s
       retries: 10
 
+  shared:
+    build:
+      context: .
+      dockerfile: ./shared.Dockerfile
+      target: development
+    volumes:
+      - .:/workspace
+      - /workspace/node_modules
+    networks:
+      - chrono-network
+    working_dir: /workspace/shared
+    healthcheck:
+      test: [ "CMD", "test", "-f", "/workspace/shared/dist/index.js" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
   backend:
     build:
       context: .
@@ -30,6 +47,8 @@ services:
     env_file:
       - ./backend/.env
     depends_on:
+      shared:
+        condition: service_healthy
       mysql:
         condition: service_healthy
     networks:
@@ -49,7 +68,10 @@ services:
       - /workspace/frontend/node_modules
       - /workspace/frontend/.next
     depends_on:
-      - backend
+      shared:
+        condition: service_healthy
+      backend:
+        condition: service_started
     networks:
       - chrono-network
     working_dir: /workspace/frontend
