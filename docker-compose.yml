@@ -16,64 +16,43 @@ services:
       timeout: 20s
       retries: 10
 
-  shared:
-    build:
-      context: ./shared
-      dockerfile: docker/Dockerfile
-      target: development
-    volumes:
-      - ./shared:/app
-      - /app/node_modules
-    networks:
-      - chrono-network
-    healthcheck:
-      test: [ "CMD", "test", "-f", "/app/dist/index.js" ]
-      interval: 5s
-      timeout: 3s
-      retries: 5
-
   backend:
     build:
-      context: ./backend
-      dockerfile: docker/Dockerfile
+      context: .
+      dockerfile: ./backend/docker/Dockerfile
       target: development
     ports:
       - "3333:3333"
     volumes:
-      - ./backend:/app
-      - /app/node_modules
-      - ./shared/dist:/app/node_modules/@chrono-tracker/shared/dist:ro
-      - ./shared/package.json:/app/node_modules/@chrono-tracker/shared/package.json:ro
+      - .:/workspace
+      - /workspace/node_modules
+      - /workspace/backend/node_modules
     env_file:
       - ./backend/.env
     depends_on:
-      shared:
-        condition: service_healthy
       mysql:
         condition: service_healthy
     networks:
       - chrono-network
+    working_dir: /workspace/backend
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: docker/Dockerfile
+      context: .
+      dockerfile: ./frontend/docker/Dockerfile
       target: development
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
-      - ./shared/dist:/app/node_modules/@chrono-tracker/shared/dist:ro
-      - ./shared/package.json:/app/node_modules/@chrono-tracker/shared/package.json:ro
+      - .:/workspace
+      - /workspace/node_modules
+      - /workspace/frontend/node_modules
+      - /workspace/frontend/.next
     depends_on:
-      shared:
-        condition: service_healthy
-      backend:
-        condition: service_started
+      - backend
     networks:
       - chrono-network
+    working_dir: /workspace/frontend
 
 volumes:
   mysql_data:

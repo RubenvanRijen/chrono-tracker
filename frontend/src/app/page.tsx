@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import {StateTypes} from '@chrono-tracker/shared'
+import {StatesTypes} from '@chrono-tracker/shared'
 
 export default function Home() {
     return (
@@ -15,7 +15,7 @@ export default function Home() {
                     priority
                 />
                 <ol>
-                    <li>{StateTypes.ACTIVE}</li>
+                    <li>{StatesTypes.ACTIVE}</li>
                     <li>
                         Get started by editing <code>src/app/page.tsx</code>.
                     </li>

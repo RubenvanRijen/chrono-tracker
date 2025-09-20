@@ -61,7 +61,7 @@
     "luxon": "^3.7.2",
     "mysql2": "^3.14.5",
     "reflect-metadata": "^0.2.2",
-    "@chrono-tracker/shared": "file:../shared"
+    "@chrono-tracker/shared": "*"
   },
   "hotHook": {
     "boundaries": [
