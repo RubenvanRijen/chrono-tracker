@@ -40,8 +40,7 @@ The application will use a modern, robust, and scalable technology stack.
 * **Frontend:** **Next.js**  
   * A React framework for building the user interface, providing Server-Side Rendering (SSR) and a great developer experience.  
   * **React-Query:** Will be used for managing server-side data fetching, caching, and state management, reducing the need for complex global state libraries.  
-  * **React-Hook-Form:** A performant and flexible library for managing forms and their validation.  
-  * **ChakraUI:** A simple, modular, and accessible component library for building the user interface with pre-built components.  
+  * **Mantine:** A modern React component library that provides accessible, customizable UI components plus built-in form utilities and hooks (e.g., useForm). Mantine will handle component styling, theming, and form handling (replacing the previous use of Chakra UI and React-Hook-Form), simplifying form validation and UI consistency across the app.  
 * **Backend:** **AdonisJS**  
   * A robust Node.js framework that offers a complete solution for building a backend API.  
   * It includes built-in features like a powerful ORM (**Lucid ORM**), authentication, and a clear project structure, similar to the Laravel framework you prefer.  
