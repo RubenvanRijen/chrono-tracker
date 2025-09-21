@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" {...mantineHtmlProps}>
-      <head title="Chrono-tracker">
+      <head>
         <ColorSchemeScript />
       </head>
       <body>
