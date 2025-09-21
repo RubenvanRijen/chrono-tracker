@@ -54,6 +54,11 @@ services:
     networks:
       - chrono-network
     working_dir: /workspace/backend
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3333/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   frontend:
     build:
@@ -75,6 +80,11 @@ services:
     networks:
       - chrono-network
     working_dir: /workspace/frontend
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   mysql_data:
