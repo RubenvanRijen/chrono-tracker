@@ -1,9 +1,9 @@
 // backend/config/swagger.ts
-import path from "node:path";
-import url from "node:url";
-import env from '#start/env';
+import path from 'node:path'
+import url from 'node:url'
+import env from '#start/env'
 
-const basePath = path.dirname(url.fileURLToPath(import.meta.url)) + "/../";
+const basePath = path.dirname(url.fileURLToPath(import.meta.url)) + '/../'
 
 export default {
   path: basePath,
@@ -11,7 +11,7 @@ export default {
   version: env.get('APP_VERSION') || '1.0.0',
   description: env.get('APP_DESCRIPTION') || '',
   tagIndex: 2,
-  productionEnv: "production",
+  productionEnv: 'production',
   info: {
     title: env.get('APP_NAME') || 'Chrono Tracker API',
     version: env.get('APP_VERSION') || '1.0.0',
@@ -20,8 +20,8 @@ export default {
   snakeCase: true,
 
   debug: false,
-  ignore: ["/swagger", "/docs"],
-  preferredPutPatch: "PUT",
+  ignore: ['/swagger', '/docs'],
+  preferredPutPatch: 'PUT',
   common: {
     parameters: {},
     headers: {},
@@ -30,15 +30,15 @@ export default {
   // Token-based authentication (Bearer / JWT)
   securitySchemes: {
     BearerAuth: {
-      type: "http",
-      scheme: "bearer",
-      bearerFormat: "JWT",
-      description: "Provide the JWT token as: `Bearer <token>`",
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      description: 'Provide the JWT token as: `Bearer <token>`',
     },
   },
 
-  authMiddlewares: ["auth", "auth:api"],
-  defaultSecurityScheme: "BearerAuth",
+  authMiddlewares: ['auth', 'auth:api'],
+  defaultSecurityScheme: 'BearerAuth',
   persistAuthorization: true,
   showFullPath: false,
-};
+}
