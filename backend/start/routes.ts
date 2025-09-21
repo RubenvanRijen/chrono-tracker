@@ -27,3 +27,8 @@ router.get("/swagger", async () => {
 router.get("/docs", async () => {
   return AutoSwagger.default.ui("/swagger", swagger);
 });
+
+// health check
+router.get('/health', async ({ response }) => {
+  return response.ok({ status: 'healthy', timestamp: new Date().toISOString() })
+})
