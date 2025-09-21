@@ -8,8 +8,8 @@
 */
 
 import router from '@adonisjs/core/services/router'
-import AutoSwagger from "adonis-autoswagger";
-import swagger from "#config/swagger";
+import AutoSwagger from 'adonis-autoswagger'
+import swagger from '#config/swagger'
 
 router.get('/', async () => {
   return {
@@ -17,16 +17,15 @@ router.get('/', async () => {
   }
 })
 
-
 // returns swagger in YAML
-router.get("/swagger", async () => {
-  return AutoSwagger.default.docs(router.toJSON(), swagger);
-});
+router.get('/swagger', async () => {
+  return AutoSwagger.default.docs(router.toJSON(), swagger)
+})
 
 // Renders Swagger-UI and passes YAML-output of /swagger
-router.get("/docs", async () => {
-  return AutoSwagger.default.ui("/swagger", swagger);
-});
+router.get('/docs', async () => {
+  return AutoSwagger.default.ui('/swagger', swagger)
+})
 
 // health check
 router.get('/health', async ({ response }) => {
