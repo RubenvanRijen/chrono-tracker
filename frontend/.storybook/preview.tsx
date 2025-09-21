@@ -5,7 +5,7 @@ import { addons } from "@storybook/addons";
 import { DARK_MODE_EVENT_NAME } from "storybook-dark-mode";
 import { MantineProvider, useMantineColorScheme } from "@mantine/core";
 import { theme } from "../src/theme";
-import type { StoryFn } from "@storybook/react";
+import type { Decorator } from "@storybook/react";
 
 const channel = addons.getChannel();
 
@@ -22,11 +22,15 @@ function ColorSchemeWrapper({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-export const decorators = [
-  (renderStory: StoryFn) => (
-    <ColorSchemeWrapper>{renderStory()}</ColorSchemeWrapper>
+export const decorators: Decorator[] = [
+  (Story) => (
+    <ColorSchemeWrapper>
+      <Story />
+    </ColorSchemeWrapper>
   ),
-  (renderStory: StoryFn) => (
-    <MantineProvider theme={theme}>{renderStory()}</MantineProvider>
+  (Story) => (
+    <MantineProvider theme={theme}>
+      <Story />
+    </MantineProvider>
   ),
 ];
