@@ -7,7 +7,7 @@ import {
     mantineHtmlProps,
 } from "@mantine/core";
 import {theme} from "../theme";
-import AppShellClient from '@frontend/components/AppShellClient';
+import AppShellClient from "@frontend/components/layout/AppShellClient";
 
 export const metadata: Metadata = {
     title: "Chrono-tracker",
