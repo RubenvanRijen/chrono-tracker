@@ -1,0 +1,99 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: chrono_tracker_test
+          MYSQL_ROOT_PASSWORD: root_password
+          MYSQL_USER: test_user
+          MYSQL_PASSWORD: test_password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared package
+        run: npm run build --workspace=shared
+
+      - name: Wait for MySQL
+        run: |
+          until mysqladmin ping -h "127.0.0.1" -P 3306 -u root -proot_password --silent; do
+            echo 'waiting for mysql...'
+            sleep 2
+          done
+          echo 'MySQL is ready!'
+
+      - name: Create test environment file
+        run: |
+          cd backend
+          cat > .env.test << EOF
+          TZ=UTC
+          PORT=3333
+          HOST=localhost
+          LOG_LEVEL=info
+          APP_KEY=$(openssl rand -base64 32)
+          NODE_ENV=test
+          
+          DB_HOST=127.0.0.1
+          DB_PORT=3306
+          DB_USER=test_user
+          DB_PASSWORD=test_password
+          DB_DATABASE=chrono_tracker_test
+          
+          SESSION_DRIVER=memory
+          EOF
+
+      - name: Run database migrations
+        run: |
+          cd backend
+          npm run db:migrate
+        env:
+          NODE_ENV: test
+
+      - name: Run unit tests
+        run: |
+          cd backend
+          npm run test:unit
+        env:
+          NODE_ENV: test
+
+      - name: Run functional tests
+        run: |
+          cd backend
+          npm run test:functional
+        env:
+          NODE_ENV: test
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          directory: ./backend/coverage
+          fail_ci_if_error: false
