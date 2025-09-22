@@ -1,6 +1,3 @@
 export function Navbar() {
-
-    return (
-        <div>je moder</div>
-    );
+  return <div>je moder</div>;
 }

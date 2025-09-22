@@ -1,1 +1,1 @@
-export * from  './StateInterface';
+export * from './StateInterface';

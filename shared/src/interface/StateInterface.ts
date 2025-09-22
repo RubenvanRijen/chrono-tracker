@@ -1,3 +1,3 @@
 export interface StateInterface {
-    test(): void;
+  test(): void;
 }
