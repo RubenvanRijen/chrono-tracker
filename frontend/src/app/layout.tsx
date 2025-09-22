@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 import {theme} from "../theme";
 import AppShellClient from "@frontend/components/layout/AppShellClient";
+import {AuthProvider} from "@frontend/contexts/AuthContext";
 
 export const metadata: Metadata = {
     title: "Chrono-tracker",
@@ -26,7 +27,9 @@ export default function RootLayout({
             </head>
             <body>
                 <MantineProvider theme={theme}>
-                    <AppShellClient>{children}</AppShellClient>
+                    <AuthProvider>
+                        <AppShellClient>{children}</AppShellClient>
+                    </AuthProvider>
                 </MantineProvider>
             </body>
         </html>
