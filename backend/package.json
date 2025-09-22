@@ -8,12 +8,16 @@
     "start": "node bin/server.js",
     "build": "node ace build",
     "dev": "node ace serve --hmr",
-    "test": "node ace test",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "node ace test",
+    "test:unit": "node ace test --suite=unit",
+    "test:functional": "node ace test --suite=functional",
+    "test:watch": "node ace test --watch",
+    "db:migrate": "node ace migration:run"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
