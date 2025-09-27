@@ -10,13 +10,7 @@ type AuthContextShape = {
     logout: () => void;
 };
 
-const AuthContext = createContext<AuthContextShape>({
-    user: null,
-    login: () => {
-    },
-    logout: () => {
-    },
-});
+const AuthContext = createContext<AuthContextShape | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User>(null);
